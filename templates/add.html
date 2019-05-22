@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block header %}Добавить задачу{% endblock header %}
+ 
+{% block content %}
+<form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="save btn btn-default">Добавить</button>
+    </form>
+
+<!-- <div class="add-form">
+        <div class="container">
+         <form method="POST">
+            {% csrf_token %}
+          <div class="row">
+           <div class="col-lg-4 col-md-4 col-sm-12">
+             <h1>Создай новое задание</h1> 
+           </div>
+           <div class="col-lg-8 col-md-8 col-sm-12 right">
+              <div class="form-group">
+                <textarea class="form-control form-control-lg">
+                 
+                </textarea>
+              </div>
+              {{ form }}
+              <input type="submit" class="btn btn-secondary btn-block" value="Send" name="">
+           </div>
+          </div>
+         </form>
+        </div>
+       </div> -->
+{% endblock content %}

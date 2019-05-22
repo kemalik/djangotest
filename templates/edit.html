@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block header %}Редактировать задачу{% endblock header %}
+ 
+{% block content %}
+<form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="save btn btn-default">Изменить</button>
+</form>
+{% endblock content %}

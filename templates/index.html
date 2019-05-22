@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block header %}Список задач:{% endblock header %}
+ 
+{% block content %}
+    {% block js %}
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    {% endblock %}
+
+    <div>
+    {% if tasks.count > 0 %}
+        <table>
+            {% for task in tasks %}
+            <tr>
+                <td id="{{task.id}}" {% if task.complete %} class="performed" {% endif %}>{{ task.text }}</td>
+                <td><a id="a{{task.id}}" {% if task.complete %} class="performed" {% endif %} href="edit/{{task.id}}">Изменить</a>
+                    <a href="delete/{{task.id}}">Удалить</a> 
+                    <input id="i{{task.id}}" class="box {% if task.complete %}performed{% endif %}" type='checkbox' value='{{task.id}}'></td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Список задач пуст!</h2>
+    {% endif %}
+    </div>
+
+    <!-- <form action="add/">
+        <input type="submit" value="Добавить задачу!" />
+    </form> -->
+
+    <script>
+        $("td.performed").css("text-decoration", "line-through");
+        $("a.performed").hide();
+        $("input.performed").hide();
+        $(".box").click(function() {
+            if(this.checked){
+                $("#"+this.value).addClass("performed");
+                $("#a"+this.value).addClass("performed");
+                $("#i"+this.value).addClass("performed");
+                $("a.performed").hide();
+                $("input.performed").hide();
+                $("td.performed").css("text-decoration", "line-through");
+                    $.ajax({
+                        type: "POST",
+                        url: '/complete/',
+                        data: {id : this.value},
+                    });                   
+            }
+        });
+    </script>
+{% endblock content %}
